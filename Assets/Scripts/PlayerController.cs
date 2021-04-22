@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float gravMod;
     public float jumpMod;
     private bool onGround = true;
+    public bool gameOver = false;
 
     void Start()
     {
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         bool spaceDown = Input.GetKeyDown(KeyCode.Space);
-        if (spaceDown)
+        if (spaceDown && onGround)
         {
             rbPlayer.AddForce(Vector3.up * jumpMod, ForceMode.Impulse);
             onGround = false;
@@ -28,7 +29,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        onGround = true;
+        if (collision.gameObject.CompareTag("Ground"))
+            onGround = true;
 
+        else if (collision.gameObject.CompareTag("Obs"))
+        {
+            gameOver = true;
+            Debug.Log("Game Over");
+        }
     }
 }

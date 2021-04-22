@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fc94dabe2f9ce43818694987e5d9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftMove: 1
+  leftMove: 10
 --- !u!1001 &4732017716029157893
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51,7 +51,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 145980, guid: 84a102c1bf03d0a43bd4b342185c2811, type: 3}
       propertyPath: m_Name
-      value: Prop_Barrier03
+      value: Prop_Barrier03 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 145980, guid: 84a102c1bf03d0a43bd4b342185c2811, type: 3}
+      propertyPath: m_TagString
+      value: Obs
       objectReference: {fileID: 0}
     - target: {fileID: 445980, guid: 84a102c1bf03d0a43bd4b342185c2811, type: 3}
       propertyPath: m_RootOrder
