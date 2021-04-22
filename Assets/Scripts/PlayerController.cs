@@ -11,13 +11,22 @@ public class PlayerController : MonoBehaviour
     public bool gameOver = false;
 
     private Animator animPlayer;
+    public ParticleSystem splodySystem;
+    public ParticleSystem dirtySystem;
+
+    public AudioClip jumpSound;
+    public AudioClip bonkSound;
+
+    private AudioSource noiseMaker;
 
     void Start()
     {
-       rbPlayer = GetComponent<Rigidbody>();
+        rbPlayer = GetComponent<Rigidbody>();
         Physics.gravity *= gravMod;
 
         animPlayer = GetComponent<Animator>();
+
+        noiseMaker = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -29,13 +38,18 @@ public class PlayerController : MonoBehaviour
             rbPlayer.AddForce(Vector3.up * jumpMod, ForceMode.Impulse);
             onGround = false;
             animPlayer.SetTrigger("Jump_trig");
+            dirtySystem.Stop();
+            noiseMaker.PlayOneShot(jumpSound, 1.0f);
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
+        {
             onGround = true;
+            dirtySystem.Play();
+        }
 
         else if (collision.gameObject.CompareTag("Obs"))
         {
@@ -43,6 +57,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Game Over");
             animPlayer.SetBool("Death_b", true);
             animPlayer.SetInteger("DeathType_int", 2);
+            splodySystem.Play();
+            noiseMaker.PlayOneShot(bonkSound, 1.0f);
         }
     }
 }
